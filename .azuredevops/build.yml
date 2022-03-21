@@ -13,8 +13,11 @@ jobs:
     steps:
       - script: cargo install --path .
         workingDirectory: src/
-      - script: cargo build -r
+        displayName: Install dependencies
+      - script: cargo build -r        
         workingDirectory: src/
+        displayName: Build app
       - script: cargo test
         workingDirectory: src/
+        displayName: Test app
       
