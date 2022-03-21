@@ -1,0 +1,21 @@
+trigger:
+- master
+- feature/*
+
+jobs:
+  - job: Build
+    pool:
+      name: Azure Pipelines
+      vmImage: ubuntu-latest
+      demands: docker
+    container: rust:1.59-buster
+    workspace:
+      clean: all    
+    steps:
+      - script: cargo install --path .
+        workingDirectory: src/
+      - script: cargo build -r
+        workingDirectory: src/
+      - script: cargo test
+        workingDirectory: src/
+      
