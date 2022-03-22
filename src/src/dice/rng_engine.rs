@@ -12,7 +12,7 @@ pub trait RngEngine {
 }
 
 /// A random number generator that implements the Hc128 algorithm
-struct Hc128RngEngine {
+pub struct Hc128RngEngine {
     csprng: Hc128Rng,
 }
 
