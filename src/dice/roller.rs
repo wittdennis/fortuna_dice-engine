@@ -3,29 +3,29 @@
 mod roller_tests;
 
 use crate::dice::Dice;
-use rand::SeedableRng;
-use rand_hc::Hc128Rng;
+use crate::dice::RngEngine;
+
 
 /// Dice roller
 pub struct Roller {
-    csprng: Hc128Rng,
+    rng_engine: Box<dyn RngEngine>,
 }
 
 impl Roller {
-    /// Creates a new roller with cryptographicly secure random algorithm
-    pub fn new() -> Self {
-        Roller {
-            csprng: rand_hc::Hc128Rng::from_entropy(),
-        }
+    /// Creates a new roller
+    ///
+    /// * `rng_engine` - Random number generation engine
+    pub fn new(rng_engine: Box<dyn RngEngine>) -> Self {
+        Roller { rng_engine }
     }
 
     /// Rolls a single dice
     ///
     /// * `sides` - The sides the dice has
-    pub fn roll_dice(self, sides: u32) -> Dice {
+    pub fn roll_dice(&mut self, sides: u32) -> Dice {
         Dice {
             sides: sides,
-            value: 1,
+            value: self.rng_engine.next(1, sides),
         }
     }
 }
