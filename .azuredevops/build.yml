@@ -18,12 +18,9 @@ jobs:
       clean: all    
     steps:
       - script: cargo install --path .
-        workingDirectory: src/
         displayName: Install dependencies
-      - script: cargo build -r        
-        workingDirectory: src/
+      - script: cargo build -r                
         displayName: Build app
-      - script: cargo test
-        workingDirectory: src/
+      - script: cargo test        
         displayName: Test app
       
