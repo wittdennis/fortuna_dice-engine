@@ -2,22 +2,25 @@ trigger:
 - master
 - feature/*
 
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - master
+
 jobs:
   - job: Build
     pool:
       name: Azure Pipelines
       vmImage: ubuntu-latest
-    container: rust:1.59-buster
+    container: rust:1.60-buster
     workspace:
       clean: all    
     steps:
       - script: cargo install --path .
-        workingDirectory: src/
         displayName: Install dependencies
-      - script: cargo build -r        
-        workingDirectory: src/
+      - script: cargo build -r                
         displayName: Build app
-      - script: cargo test
-        workingDirectory: src/
+      - script: cargo test        
         displayName: Test app
       
