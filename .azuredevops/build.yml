@@ -2,12 +2,18 @@ trigger:
 - master
 - feature/*
 
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - master
+
 jobs:
   - job: Build
     pool:
       name: Azure Pipelines
       vmImage: ubuntu-latest
-    container: rust:1.59-buster
+    container: rust:1.60-buster
     workspace:
       clean: all    
     steps:
